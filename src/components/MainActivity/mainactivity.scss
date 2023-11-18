@@ -49,8 +49,9 @@
 
     &__cards {
         display: grid;
+        grid-template-columns: 1fr;
         grid-template-areas: "psentiment"  "nsentiment" "reach";
-        height: 80vh;
+        height: max-content;
         gap: $spacer;
 
         &__card {
@@ -59,6 +60,7 @@
             border-radius: $border-radius-sm;
             padding: $spacer1_2 $spacer;
             overflow: hidden;
+            height: max-content;
             
             &--psentiment {
                 grid-area: psentiment;
@@ -83,8 +85,10 @@
         }
 
         &__cards {
+            grid-template-columns: repeat(2, 1fr);
             grid-template-areas: "psentiment nsentiment" "reach reach";
             gap: $spacer2x;
+            height: 80vh;
             &__card {
                 padding: $spacer $spacer125;
             }

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import "./chart.scss"
 import Plot from "react-plotly.js";
 
 export default function Chart({ data }: any) {
@@ -17,7 +16,7 @@ export default function Chart({ data }: any) {
 
   function extractData() {
     const extractedData = data?.map(({ company_name, daily_review_count }: any) => ({
-      name: company_name,
+    name: company_name,
       type: 'scatter',
       mode: 'lines',
       x: daily_review_count?.map((item: any) => item.date),
@@ -29,10 +28,12 @@ export default function Chart({ data }: any) {
 
   return (
     <Plot
+      style={{width: "100%", height: "100%"}}
+      useResizeHandler
+      layout={{ autosize: true, height: 300, hovermode: false }}
       data={
         chartFeed
       }
-      layout={{ width: 500, height: 370 }}
     />
   )
 }
