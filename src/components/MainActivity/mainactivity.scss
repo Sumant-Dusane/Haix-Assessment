@@ -6,44 +6,47 @@
     padding: $spacer;
     &__header {
         @include flex(row, center, flex-start, $spacer);
-        padding: $spacer1_2;
-        background-color: $white;
-        overflow-x: auto;
-        border-radius: $border-radius-sm;
         margin-bottom: $spacer2x;
 
-        &__chip {
-            position: relative;
-            font-size: $font-size-12;
+        &__chips {
+            @include flex(row, center, flex-start, $spacer);
             padding: $spacer1_2;
-            min-width: 72px;
-            max-width: 320px;
-            border-radius: $border-radius-m;
-            text-align: center;
-            border: 1px solid $textPrimary;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            transition: $transition-fast;
+            background-color: $white;
+            overflow-x: auto;
+            flex: 1 1 0;
+            border-radius: $border-radius-sm;
 
-            input {
-                @include element-position(absolute, 0, 0, 0, 0);
-                cursor: pointer;
-                opacity: 0;
-            }
-
-            &:hover, &.selected {
-                color: $white;
-                background-color: $textPrimary;
+            &__chip {
+                position: relative;
+                font-size: $font-size-12;
+                padding: $spacer1_2;
+                min-width: 72px;
+                max-width: 320px;
+                border-radius: $border-radius-m;
+                text-align: center;
+                border: 1px solid $textPrimary;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                transition: $transition-fast;
+    
+                input {
+                    @include element-position(absolute, 0, 0, 0, 0);
+                    cursor: pointer;
+                    opacity: 0;
+                }
+    
+                &:hover, &.selected {
+                    color: $white;
+                    background-color: $textPrimary;
+                }
             }
         }
 
-        &::-webkit-scrollbar-thumb {
-            width: 3px;
-            background: $textPrimary;
-        }
-
-        &::-webkit-scrollbar-track {
-            background: transparent;
+        &__toggle-chart {
+            @include flex(row, center, flex-start, $spacer1_2);
+            background-color: $white;
+            padding: $spacer;
+            border-radius: $border-radius-sm;
         }
     }
 
@@ -61,6 +64,12 @@
             padding: $spacer1_2 $spacer;
             overflow: hidden;
             height: max-content;
+
+            .header {
+                @include flex(row, center, space-between, $spacer);
+                margin-bottom: $spacer;
+            }
+            
             
             &--psentiment {
                 grid-area: psentiment;

@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import './mainactivity.scss';
-import Chart from '../Chart/Chart';
+import Chart from '../Charts/Chart';
 import { MainDataInterface } from '../../state/app-state';
 
 export default function MainActivity() {
   const [companyNames, setCompanyNames] = useState<string[]>([]);
   const [selectedChips, setSelectedChips] = useState<string[]>([]);
   const [companyData, setCompanyData] = useState<MainDataInterface[]>([]);
+  const [selectedCompanyData, setSelectedCompanyData] = useState<MainDataInterface[]>([]);
   const [positiveSentimentData, setPositiveSentimentData] = useState<any[]>([]);
   const [negativeSentimentData, setNegativeSentimentData] = useState<any[]>([]);
   const [reachSentimentData, setReachSentimentData] = useState<any[]>([]);
+  const [isChartLine, setChartType] = useState<boolean>(true);
 
   useEffect(() => {
     let data: MainDataInterface[] = [
@@ -67,12 +69,12 @@ export default function MainActivity() {
     setNegativeSentimentData(seperateData('negative'));
     setReachSentimentData(seperateData('reach'));
 
-  }, [companyData?.length]);
+  }, [companyData?.length, selectedCompanyData?.length, positiveSentimentData?.length, negativeSentimentData?.length, reachSentimentData?.length, isChartLine]);
 
   function seperateData(type: 'positive' | 'negative' | 'reach'): any[] {
     let newData: any[] = [];
-    companyData.map((data: MainDataInterface) => {
-      if (type === 'positive' ) {
+    selectedCompanyData.map((data: MainDataInterface) => {
+      if (type === 'positive') {
         const newDailyReviewCounts = data.daily_review_counts.map(({ date, positive_count }) => ({
           date,
           positive_count
@@ -81,7 +83,7 @@ export default function MainActivity() {
           company_name: data.company_name,
           daily_review_count: newDailyReviewCounts
         });
-      } else if(type === 'negative') {
+      } else if (type === 'negative') {
         const newDailyReviewCounts = data.daily_review_counts.map(({ date, negative_count }) => ({
           date,
           negative_count
@@ -116,7 +118,7 @@ export default function MainActivity() {
   const mapChips = () => {
     return companyNames?.map((company: string, index: number) => {
       let isChipSeleted = selectedChips.indexOf(company) !== -1;
-      return <div className={isChipSeleted ? "dashboard__header__chip selected" : "dashboard__header__chip"} key={index}>
+      return <div className={isChipSeleted ? "dashboard__header__chips__chip selected" : "dashboard__header__chips__chip"} key={index}>
         {company}
         <input
           type="checkbox"
@@ -129,36 +131,47 @@ export default function MainActivity() {
   }
 
   const handleChipsState = (company: string) => {
-    // remove
     if (selectedChips.indexOf(company) !== -1) {
+      // remove
       setSelectedChips(selectedChips.filter((chip) => chip !== company))
+      setSelectedCompanyData(selectedCompanyData.filter((data) => data.company_name !== company));
     } else {
       // add
-      let obj: any = companyData.filter(data => data.company_name === company)[0];
       setSelectedChips([...selectedChips, company]);
+      let newObj = companyData.filter(data => data.company_name === company)[0];
+      setSelectedCompanyData([...selectedCompanyData, newObj]);
     }
   }
-
-
 
   return (
     <div className='dashboard'>
       <div className="dashboard__header">
-        {mapChips()}
+        <div className="dashboard__header__chips">
+          {mapChips()}
+        </div>
+        <div className="dashboard__header__toggle-chart">
+          <span>📈</span>
+          <label className="switch">
+            <input type="checkbox" onChange={() => setChartType(!isChartLine)} />
+            <span className="slider"></span>
+          </label>
+          <span>📊</span>
+        </div>
+
       </div>
 
       <main className="dashboard__cards">
         <div className="dashboard__cards__card dashboard__cards__card--psentiment">
           <h2>😀 Positive Sentiments</h2>
-          <Chart data={positiveSentimentData} />
+          <Chart data={positiveSentimentData} type={isChartLine ? 'line' : 'bar'} />
         </div>
         <div className="dashboard__cards__card dashboard__cards__card--nsentiment">
-          <h2>😟 Negative Sentiments</h2>
-          <Chart data={negativeSentimentData} />
+          <h2>😀 Negative Sentiments</h2>
+          <Chart data={negativeSentimentData} type={isChartLine ? 'line' : 'bar'} />
         </div>
         <div className="dashboard__cards__card dashboard__cards__card--reach">
           <h2>📈 Reach</h2>
-          <Chart data={reachSentimentData} />
+          <Chart data={reachSentimentData} type={isChartLine ? 'line' : 'bar'} />
         </div>
       </main>
     </div>

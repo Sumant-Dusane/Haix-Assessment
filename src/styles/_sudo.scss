@@ -1,4 +1,4 @@
-@mixin sudo-full($content, $position, $top, $right, $bottom, $left) {
+@mixin sudo-fill($content, $position, $top, $right, $bottom, $left) {
   content: $content;
   position: $position;
   top: $top;
