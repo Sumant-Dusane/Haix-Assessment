@@ -1,0 +1,93 @@
+@import "../../styles/variables";
+@import "../../styles/flex";
+@import "../../styles/sudo";
+
+.dashboard {
+    padding: $spacer;
+    &__header {
+        @include flex(row, center, flex-start, $spacer);
+        padding: $spacer1_2;
+        background-color: $white;
+        overflow-x: auto;
+        border-radius: $border-radius-sm;
+        margin-bottom: $spacer2x;
+
+        &__chip {
+            position: relative;
+            font-size: $font-size-12;
+            padding: $spacer1_2;
+            min-width: 72px;
+            max-width: 320px;
+            border-radius: $border-radius-m;
+            text-align: center;
+            border: 1px solid $textPrimary;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: $transition-fast;
+
+            input {
+                @include element-position(absolute, 0, 0, 0, 0);
+                cursor: pointer;
+                opacity: 0;
+            }
+
+            &:hover, &.selected {
+                color: $white;
+                background-color: $textPrimary;
+            }
+        }
+
+        &::-webkit-scrollbar-thumb {
+            width: 3px;
+            background: $textPrimary;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+    }
+
+    &__cards {
+        display: grid;
+        grid-template-areas: "psentiment"  "nsentiment" "reach";
+        height: 80vh;
+        gap: $spacer;
+
+        &__card {
+            position: relative;
+            background-color: $white;
+            border-radius: $border-radius-sm;
+            padding: $spacer1_2 $spacer;
+            overflow: hidden;
+            
+            &--psentiment {
+                grid-area: psentiment;
+            }
+            &--nsentiment {
+                grid-area: nsentiment;
+            }
+            &--reach {
+                grid-area: reach;
+            }
+        }
+    }
+
+    @media screen and (min-width: 786px) {
+        padding: $spacer2x;
+        &__header {
+            padding: $spacer;
+            padding-right: 0;
+            &__chip {
+                font-size: $font-size-14;
+            }
+        }
+
+        &__cards {
+            grid-template-areas: "psentiment nsentiment" "reach reach";
+            gap: $spacer2x;
+            &__card {
+                padding: $spacer $spacer125;
+            }
+        }
+    }
+}
