@@ -83,6 +83,35 @@
         }
     }
 
+    &__sub-nav {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: $spacer1_2;
+
+        &__source {
+            position: relative;
+            text-align: center;
+            padding: $spacer;
+            background-color: $white;
+            border-radius: $border-radius-s;
+
+            img {
+                max-height: 50px;
+            }
+
+            input {
+                cursor: pointer;
+                @include element-position(absolute, 0, 0, 0, 0);
+                opacity: 0;
+            }
+
+            &.active {
+                background-color: $lightBlueSubtle;
+            }
+        }
+    }
+
     &__companies {
         @include flex(row, center, flex-start, $spacer125);
         margin: $spacer 0;

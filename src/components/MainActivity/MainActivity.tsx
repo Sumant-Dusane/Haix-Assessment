@@ -12,6 +12,7 @@ export default function MainActivity() {
   const [negativeSentimentData, setNegativeSentimentData] = useState<any[]>([]);
   const [reachSentimentData, setReachSentimentData] = useState<any[]>([]);
   const [isChartLine, setChartType] = useState<boolean>(true);
+  const [currentSource, setCurrentSource] = useState<'twitter' | 'instagram' | 'tiktok' | 'youtube' | 'facebook'>('tiktok')
 
   useEffect(() => {
     let data: MainDataInterface[] = [
@@ -257,6 +258,29 @@ export default function MainActivity() {
           Showing Analysis for <span>{selectedChips.toString()}</span>
         </div>
       </div>
+      {/* <div className="dashboard__sub-nav">
+        <div className={currentSource == 'twitter' ? "dashboard__sub-nav__source active" : "dashboard__sub-nav__source"}>
+          <img src="https://bayrivercolleges.ca/files/logo-x-twitter.svg" alt="X.com"/>
+          <input type="radio" name="insight-source" onChange={() => setCurrentSource('twitter')}/>
+        </div>
+        <div className={currentSource == 'instagram' ? "dashboard__sub-nav__source active" : "dashboard__sub-nav__source"}>
+          <img src="https://www.freepnglogos.com/uploads/logo-ig-png/logo-ig-stunning-instagram-logo-vector-download-for-new-7.png" alt="Instagram"/>
+          <input type="radio" name="insight-source" onChange={() => setCurrentSource('instagram')}/>
+        </div>
+        <div className={currentSource == 'tiktok' ? "dashboard__sub-nav__source active" : "dashboard__sub-nav__source"}>
+          <img src="https://1000logos.net/wp-content/uploads/2019/06/Tiktok_Logo.png" alt="Tiktok"/>
+          <input type="radio" name="insight-source" onChange={() => setCurrentSource('tiktok')}/>
+        </div>
+        <div className={currentSource == 'youtube' ? "dashboard__sub-nav__source active" : "dashboard__sub-nav__source"}>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png?20220706172052" alt="YouTube"/>
+          <input type="radio" name="insight-source" onChange={() => setCurrentSource('youtube')}/>
+        </div>
+        <div className={currentSource == 'facebook' ? "dashboard__sub-nav__source active" : "dashboard__sub-nav__source"}>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Facebook_Logo_2023.png" alt="Facebook"/>
+          <input type="radio" name="insight-source" onChange={() => setCurrentSource('facebook')}/>
+        </div>
+      </div> */}
+
       <div className="dashboard__companies">
         <div className="dashboard__companies__company">
           <div className='logo'><img src="https://www.edigitalagency.com.au/wp-content/uploads/TikTok-icon-glyph.png" alt="Tiktok" /></div>
@@ -264,6 +288,7 @@ export default function MainActivity() {
           <button className="button">✏️</button>
         </div>
       </div>
+
       <div className="dashboard__insight-control">
         <button className='selected'>Actionable Insight</button>
         <button>My Favourite View</button>
