@@ -17,9 +17,26 @@ body {
   font-size: $font-size-base;
   color: $textPrimary;
   background-color: $bgBody;
+}
 
-  @media screen and (min-width: 769px) {
-    overflow: hidden;
-    height: 100vh;
+button {
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+}
+
+button, a {
+  transition: $transition-fast;
+}
+
+
+input[type=text] {
+  border: 1px solid $blueSubtle;
+  border-radius: $border-radius-s;
+  background-color: $white;
+  padding: $spacer1_2;
+
+  &:focus {
+    outline: 0;
   }
 }

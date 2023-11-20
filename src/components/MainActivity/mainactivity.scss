@@ -6,12 +6,10 @@
     padding: $spacer;
     &__header {
         @include flex(row, center, flex-start, $spacer);
-        margin-bottom: $spacer2x;
+        margin-bottom: $spacer;
 
         &__chips {
             @include flex(row, center, flex-start, $spacer);
-            padding: $spacer1_2;
-            background-color: $white;
             overflow-x: auto;
             flex: 1 1 0;
             border-radius: $border-radius-sm;
@@ -19,12 +17,14 @@
             &__chip {
                 position: relative;
                 font-size: $font-size-12;
+                white-space: nowrap;
                 padding: $spacer1_2;
-                min-width: 72px;
+                min-width: 120px;
                 max-width: 320px;
-                border-radius: $border-radius-m;
+                border-radius: $border-radius-sm;
+                background-color: $white;
+                border: 1px solid $bgColorVariant;
                 text-align: center;
-                border: 1px solid $textPrimary;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 transition: $transition-fast;
@@ -37,7 +37,17 @@
     
                 &:hover, &.selected {
                     color: $white;
-                    background-color: $textPrimary;
+                    background-color: $blueSubtle;
+                }
+            }
+
+
+            &__button {
+                font-size: $font-size-12;
+                color: $textPrimary;
+
+                &:hover {
+                    color: lighten($color: $textPrimary, $amount: 40);
                 }
             }
         }
@@ -50,26 +60,123 @@
         }
     }
 
+    &__formcontrol {
+        @include flex(column, flex-start, center, $spacer);
+        font-size: $font-size-14;
+        &__dselection {
+            @include flex(row, flex-start, center, $spacer3x);
+            & > div {
+                @include flex(column, flex-start, center, $spacer1_4);
+            }
+        }
+        &__fetch-insights {
+            background-color: $lightBlueSubtle;
+            padding: $spacer1_2 $spacer125;
+            border-radius: $border-radius-s;
+        }
+        &__chips-display {
+            margin: $spacer1_2 0;
+            span {
+                color: $green;
+                font-weight: 600;
+            }
+        }
+    }
+
+    &__companies {
+        @include flex(row, center, flex-start, $spacer125);
+        margin: $spacer 0;
+        overflow-x: auto;
+        padding: 0 $spacer1_2;
+        
+        &__company {
+            @include flex(row, center, flex-start, $spacer1_4);
+            position: relative;
+            background-color: $white;
+            border-radius: $border-radius-s;
+            border: 1px solid $blueSubtle;
+            padding: $spacer1_2 $spacer;
+            margin-left: $spacer2x;
+
+            .logo {
+                @include element-position(absolute, 50%, unset, unset, -35px);
+                background-color: $white;
+                transform: translateY(-50%);
+                border-radius: $border-radius-rounded;
+                border: 2px solid $textPrimary;
+                overflow: hidden;
+                height: 40px;
+                width: 40px;
+                padding: $spacer1_4;
+                z-index: 3;
+
+                img {
+                    max-height: 100%;
+                    object-fit: contain;
+                }
+            }
+
+            .title {
+                padding: $spacer1_4;
+                background-color: $bgColorVariant;
+                border-radius: $border-radius-s;
+                min-width: 120px;
+                border: 1px solid darken($color: $bgColorVariant, $amount: 10);
+            }
+        }
+    }
+
+    &__insight-control {
+        padding: $spacer 0;
+        border-top: 1px solid transparentize($color: $black, $amount: 0.75);
+        text-align: end;
+
+        button {
+            font-size: $font-size-12;
+            background-color: $white;
+            padding: $spacer1_2;
+            border: 1px solid $bgColorVariant;
+
+            &.selected {
+                color: $white;
+                background-color: $textPrimary;
+                border: 1px solid $textPrimary;
+            }
+
+            &:first-child {
+                border-top-left-radius: $border-radius-sm;
+                border-bottom-left-radius: $border-radius-sm;
+            }
+            &:last-child {
+                border-top-right-radius: $border-radius-sm;
+                border-bottom-right-radius: $border-radius-sm;
+            }
+        }
+    }
+
     &__cards {
         display: grid;
         grid-template-columns: 1fr;
         grid-template-areas: "psentiment"  "nsentiment" "reach";
         height: max-content;
         gap: $spacer;
+        padding: $spacer125;
+        background-color: lighten($color: $bgBody, $amount: 3);
+        border-radius: $border-radius-sm;
+        border: 1px solid transparentize($color: $black, $amount: 0.8);
 
         &__card {
             position: relative;
             background-color: $white;
-            border-radius: $border-radius-sm;
+            border-radius: $border-radius-s;
             padding: $spacer1_2 $spacer;
             overflow: hidden;
-            height: max-content;
+            height: max-content;    
 
-            .header {
-                @include flex(row, center, space-between, $spacer);
-                margin-bottom: $spacer;
+            h2 {
+                padding-bottom: $spacer125;
+                border-bottom: 1px solid transparentize($color: $black, $amount: 0.7);
             }
-            
             
             &--psentiment {
                 grid-area: psentiment;
@@ -84,20 +191,18 @@
     }
 
     @media screen and (min-width: 786px) {
-        padding: $spacer2x;
+        padding: $spacer $spacer125;
         &__header {
-            padding: $spacer;
-            padding-right: 0;
             &__chip {
                 font-size: $font-size-14;
             }
         }
 
         &__cards {
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-areas: "psentiment nsentiment" "reach reach";
-            gap: $spacer2x;
-            height: 80vh;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-areas: "psentiment nsentiment reach";
+            gap: $spacer;
+            // height: 80vh;
             &__card {
                 padding: $spacer $spacer125;
             }

@@ -32,14 +32,13 @@ export default function Chart({ data, type }: any) {
       useResizeHandler
       layout={{
         autosize: true,
-        height: 300,
         hovermode: false,
-        xaxis: {
-          showgrid: false
-        },
-        yaxis: {
-          showgrid: false
-        },
+        // xaxis: {
+        //   showgrid: false
+        // },
+        // yaxis: {
+        //   showgrid: false
+        // },
         transition: { ordering: 'traces first', easing: 'sin-out', 'duration': 100 }
       }}
       data={

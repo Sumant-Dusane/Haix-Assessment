@@ -60,7 +60,76 @@ export default function MainActivity() {
             maximum_reach: 20500
           }
         ]
-      }
+      },
+      {
+        company_name: "BlackRock",
+        daily_review_counts: [
+          {
+            date: "2023-06-01",
+            positive_count: 10500,
+            negative_count: 100,
+            maximum_reach: 8000
+          },
+          {
+            date: "2023-06-02",
+            positive_count: 20250,
+            negative_count: 50,
+            maximum_reach: 6500
+          },
+          {
+            date: "2023-06-03",
+            positive_count: 500,
+            negative_count: 5000,
+            maximum_reach: 50500
+          }
+        ]
+      },
+      {
+        company_name: "Vanguard",
+        daily_review_counts: [
+          {
+            date: "2023-06-01",
+            positive_count: 20500,
+            negative_count: 150,
+            maximum_reach: 8000
+          },
+          {
+            date: "2023-06-02",
+            positive_count: 10250,
+            negative_count: 550,
+            maximum_reach: 6500
+          },
+          {
+            date: "2023-06-03",
+            positive_count: 700,
+            negative_count: 8000,
+            maximum_reach: 90500
+          }
+        ]
+      },
+      {
+        company_name: "Sumant Dusane Inc.",
+        daily_review_counts: [
+          {
+            date: "2023-06-01",
+            positive_count: 13500,
+            negative_count: 200,
+            maximum_reach: 54000
+          },
+          {
+            date: "2023-06-02",
+            positive_count: 44250,
+            negative_count: 200,
+            maximum_reach: 34500
+          },
+          {
+            date: "2023-06-03",
+            positive_count: 98500,
+            negative_count: 1000,
+            maximum_reach: 90500
+          }
+        ]
+      },
     ]
 
     setCompanyData(data);
@@ -143,21 +212,61 @@ export default function MainActivity() {
     }
   }
 
+  const clearChart = () => {
+    setSelectedChips([]);
+    setSelectedCompanyData([]);
+  }
+
   return (
     <div className='dashboard'>
       <div className="dashboard__header">
         <div className="dashboard__header__chips">
           {mapChips()}
+          <button onClick={clearChart} className="dashboard__header__chips__button">Clear All Companies</button>
         </div>
-        <div className="dashboard__header__toggle-chart">
+        {/* <div className="dashboard__header__toggle-chart">
           <span>📈</span>
           <label className="switch">
             <input type="checkbox" onChange={() => setChartType(!isChartLine)} />
             <span className="slider"></span>
           </label>
           <span>📊</span>
-        </div>
+        </div> */}
 
+      </div>
+
+      <div className="dashboard__formcontrol">
+        <div className="dashboard__formcontrol__dselection">
+          <div>
+            Days Selection
+            <label><input type="radio" name="days" id="days" />  Days</label>
+            <label><input type="radio" name="days" id="days" />  Custom Range</label>
+          </div>
+          <div>
+            Number of Days
+            <input type="text" placeholder="10" />
+          </div>
+        </div>
+        <div className="dashboard__formcontrol__bsearch">
+          🔎 Boolean Search
+        </div>
+        <button className="dashboard__formcontrol__fetch-insights">
+          🌏 Fetch Insights
+        </button>
+        <div className="dashboard__formcontrol__chips-display">
+          Showing Analysis for <span>{selectedChips.toString()}</span>
+        </div>
+      </div>
+      <div className="dashboard__companies">
+        <div className="dashboard__companies__company">
+          <div className='logo'><img src="https://www.edigitalagency.com.au/wp-content/uploads/TikTok-icon-glyph.png" alt="Tiktok" /></div>
+          <input type="text" className="title" placeholder="doritos" />
+          <button className="button">✏️</button>
+        </div>
+      </div>
+      <div className="dashboard__insight-control">
+        <button className='selected'>Actionable Insight</button>
+        <button>My Favourite View</button>
       </div>
 
       <main className="dashboard__cards">
